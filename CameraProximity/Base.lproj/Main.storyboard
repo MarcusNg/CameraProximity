@@ -21,34 +21,46 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4j-B3-cXY">
-                                <rect key="frame" x="147" y="50" width="80" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c8U-FW-F46">
+                                <rect key="frame" x="225" y="416" width="130" height="231"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="FDG-Ey-uTE"/>
-                                    <constraint firstAttribute="height" constant="40" id="Yrr-i2-SIO"/>
+                                    <constraint firstAttribute="height" constant="231" id="9lp-zA-BGo"/>
+                                    <constraint firstAttribute="width" constant="130" id="cbV-jA-s6X"/>
                                 </constraints>
-                                <state key="normal" title="Renable"/>
                                 <connections>
-                                    <action selector="renableBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EjX-ju-Lk4"/>
+                                    <action selector="photoBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="adv-ZD-1gf"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jJU-Hb-xAS">
-                                <rect key="frame" x="215" y="427" width="140" height="220"/>
+                                <rect key="frame" x="225" y="416" width="130" height="231"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="3mA-ZB-h4n"/>
-                                    <constraint firstAttribute="height" constant="220" id="MM6-fg-RPU"/>
+                                    <constraint firstAttribute="width" constant="130" id="3mA-ZB-h4n"/>
+                                    <constraint firstAttribute="height" constant="231" id="MM6-fg-RPU"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o4j-B3-cXY">
+                                <rect key="frame" x="225" y="347" width="130" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="FDG-Ey-uTE"/>
+                                    <constraint firstAttribute="height" constant="40" id="Yrr-i2-SIO"/>
+                                </constraints>
+                                <state key="normal" title="Re-enable Camera"/>
+                                <connections>
+                                    <action selector="reenableBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0QL-27-FIF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="o4j-B3-cXY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="3J1-5q-G1T"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="c8U-FW-F46" secondAttribute="bottom" constant="20" id="B6B-pZ-l2H"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="o4j-B3-cXY" secondAttribute="bottom" constant="280" id="Q7R-lJ-YyC"/>
                             <constraint firstItem="Kqu-UL-Bs1" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="R66-wu-Eqg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jJU-Hb-xAS" secondAttribute="bottom" constant="20" id="Rj0-sl-CGu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="o4j-B3-cXY" secondAttribute="trailing" constant="20" id="SHI-9m-xUk"/>
                             <constraint firstItem="Kqu-UL-Bs1" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="chE-aJ-1eO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jJU-Hb-xAS" secondAttribute="trailing" constant="20" id="h9o-yw-FqE"/>
-                            <constraint firstItem="o4j-B3-cXY" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="uJy-87-CU1"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="c8U-FW-F46" secondAttribute="trailing" constant="20" id="npg-2W-8m8"/>
                             <constraint firstItem="Kqu-UL-Bs1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="wwj-Or-GUt"/>
                             <constraint firstItem="Kqu-UL-Bs1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xf5-9B-nTD"/>
                         </constraints>
@@ -57,6 +69,8 @@
                     <connections>
                         <outlet property="cameraView" destination="Kqu-UL-Bs1" id="nKd-84-mQZ"/>
                         <outlet property="captureImgView" destination="jJU-Hb-xAS" id="2Sb-37-k5B"/>
+                        <outlet property="reenableBtn" destination="o4j-B3-cXY" id="iyh-VJ-J0f"/>
+                        <outlet property="savePhotoBtn" destination="c8U-FW-F46" id="siP-89-pzE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

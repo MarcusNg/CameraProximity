@@ -13,15 +13,19 @@ class CameraVC: UIViewController {
     
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var captureImgView: UIImageView!
+    @IBOutlet weak var savePhotoBtn: UIButton!
+    @IBOutlet weak var reenableBtn: UIButton!
     
     var photoData: Data?
     var captureSession: AVCaptureSession!
     var cameraOutput: AVCapturePhotoOutput!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    var flashControlState: FlashState = .off
+//    var flashControlState: FlashState = .off
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        savePhotoBtn.isEnabled = false
+        reenableBtn.isEnabled = false
         setProximitySensorEnabled(true)
     }
     
@@ -54,7 +58,6 @@ class CameraVC: UIViewController {
                 previewLayer.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
                 
                 cameraView.layer.addSublayer(previewLayer!)
-//                cameraView.addGestureRecognizer(tap)
                 captureSession.startRunning()
             }
             
@@ -63,13 +66,30 @@ class CameraVC: UIViewController {
         }
     }
 
-    @IBAction func renableBtnPressed(_ sender: Any) {
-        let device = UIDevice.current
-        device.isProximityMonitoringEnabled = true
+    @IBAction func reenableBtnPressed(_ sender: Any) {
+        setProximitySensorEnabled(true)
+        reenableBtn.isEnabled = false
     }
     
-    @objc func proximityStateDidChange(notification: NSNotification) {
- 
+    @IBAction func photoBtnPressed(_ sender: Any) {
+        savePhotoBtn.isEnabled = false
+        // Save photo (bug: photos save in landscape)
+        let newImage = UIImage(cgImage: (captureImgView.image?.cgImage)!, scale: 0.8, orientation: .up)
+        let imageData = UIImagePNGRepresentation(newImage)
+        let compressedImage = UIImage(data: imageData!)
+        
+        UIImageWriteToSavedPhotosAlbum(compressedImage!, nil, nil, nil)
+        
+        let alert = UIAlertController(title: "Saved", message: "Your image has been saved", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func proximityChanged(_ notification: Notification) {
+        if (notification.object as? UIDevice) != nil {
+            captureImage()
+        }
     }
     
     // Proximity Sensor
@@ -83,28 +103,22 @@ class CameraVC: UIViewController {
         }
     }
     
-    @objc func proximityChanged(_ notification: Notification) {
-        if (notification.object as? UIDevice) != nil {
-            print("So take the photo lmao")
-            captureImage()
-        }
-    }
-    
     func captureImage() {
         
         let settings = AVCapturePhotoSettings()
         settings.previewPhotoFormat = settings.embeddedThumbnailPhotoFormat
         
-        if flashControlState == .off {
-            settings.flashMode = .off
-        } else {
-            settings.flashMode = .on
-        }
+//        if flashControlState == .off {
+//            settings.flashMode = .off
+//        } else {
+//            settings.flashMode = .on
+//        }
         
         cameraOutput.capturePhoto(with: settings, delegate: self)
         
-        let device = UIDevice.current
-        device.isProximityMonitoringEnabled = false
+        savePhotoBtn.isEnabled = true
+        reenableBtn.isEnabled = true
+        setProximitySensorEnabled(false)
     }
     
 }
